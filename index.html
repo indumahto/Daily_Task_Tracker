@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow • Daily Tasks, Lists & Habit Alarms</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts for crisp typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome for clean icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Left Sidebar: Brand & Add Task/Habit Panel -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-badge"><i class="fa-solid fa-layer-group"></i></div>
+          <div>
+            <h1 class="brand-title">TaskFlow</h1>
+            <span class="brand-subtitle">Smart Lists & Habits</span>
+          </div>
+        </div>
+        <button id="closeSidebarBtn" class="mobile-close-btn" title="Close Sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Creation Mode Switcher in Sidebar -->
+      <div class="sidebar-mode-switcher">
+        <button class="mode-btn active" id="modeTaskBtn" data-mode="task">
+          <i class="fa-solid fa-plus-circle"></i> Add Task
+        </button>
+        <button class="mode-btn" id="modeHabitBtn" data-mode="habit">
+          <i class="fa-solid fa-seedling"></i> Habit & Alarm
+        </button>
+      </div>
+
+      <!-- 1. Task Creation Form -->
+      <section class="sidebar-section" id="taskFormSection">
+        <div class="section-title-wrap">
+          <span class="section-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+          <h2 class="sidebar-section-heading">Create New Item</h2>
+        </div>
+
+        <form id="taskForm" class="sidebar-form">
+          <div class="form-group">
+            <label for="taskTitleInput">Item / Task Title</label>
+            <input 
+              type="text" 
+              id="taskTitleInput" 
+              placeholder="e.g., Buy almond milk, Watch Inception..." 
+              required 
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="taskCategory"><i class="fa-solid fa-folder"></i> Choose List Tile</label>
+            <select id="taskCategory">
+              <option value="Shopping">🛒 Shopping List</option>
+              <option value="Work">💼 Work List</option>
+              <option value="Visit">✈️ Visit List</option>
+              <option value="Movie">🎬 Movie List</option>
+              <option value="Study">📚 Study List</option>
+              <option value="Health">🥗 Health List</option>
+              <option value="Personal">🏠 Personal List</option>
+              <option value="Other">✨ Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="taskPriority"><i class="fa-solid fa-flag"></i> Priority Level</label>
+            <select id="taskPriority">
+              <option value="high">🔴 High Priority</option>
+              <option value="medium" selected>🟡 Medium Priority</option>
+              <option value="low">🟢 Low Priority</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="taskDueDate"><i class="fa-regular fa-calendar"></i> Due Date (Optional)</label>
+            <input type="date" id="taskDueDate">
+          </div>
+
+          <button type="submit" class="btn-primary-sidebar" id="submitTaskBtn">
+            <i class="fa-solid fa-plus"></i> Add to List
+          </button>
+        </form>
+      </section>
+
+      <!-- 2. Habit & Alarm Creation Form -->
+      <section class="sidebar-section" id="habitFormSection" style="display: none;">
+        <div class="section-title-wrap">
+          <span class="section-icon"><i class="fa-solid fa-clock"></i></span>
+          <h2 class="sidebar-section-heading">Set Habit & Alarm</h2>
+        </div>
+
+        <form id="habitForm" class="sidebar-form">
+          <div class="form-group">
+            <label for="habitTitleInput">Habit Name</label>
+            <input 
+              type="text" 
+              id="habitTitleInput" 
+              placeholder="e.g., Morning Yoga, Drink Water..." 
+              required 
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="habitIcon"><i class="fa-solid fa-icons"></i> Habit Icon</label>
+            <select id="habitIcon">
+              <option value="💧">💧 Drink Water</option>
+              <option value="🧘">🧘 Meditation</option>
+              <option value="🏃">🏃 Workout / Walk</option>
+              <option value="📚">📚 Read Book</option>
+              <option value="🥗">🥗 Healthy Meal</option>
+              <option value="💻">💻 Coding / Study</option>
+              <option value="💊">💊 Take Medicine</option>
+              <option value="😴">😴 Sleep Routine</option>
+              <option value="✨">✨ Custom Habit</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="habitTime"><i class="fa-solid fa-bell"></i> Alarm Time</label>
+            <input type="time" id="habitTime" required>
+          </div>
+
+          <div class="form-group">
+            <label for="habitFrequency"><i class="fa-solid fa-repeat"></i> Repeat Frequency</label>
+            <select id="habitFrequency">
+              <option value="Every Day">Every Day</option>
+              <option value="Weekdays">Weekdays (Mon-Fri)</option>
+              <option value="Weekends">Weekends</option>
+            </select>
+          </div>
+
+          <div class="alarm-toggle-row">
+            <label class="checkbox-label" for="habitAlarmEnabled">
+              <input type="checkbox" id="habitAlarmEnabled" checked>
+              <span>Enable Sound Alarm 🔔</span>
+            </label>
+            <button type="button" class="btn-test-sound" id="testSoundBtn" title="Test Alarm Tone">
+              <i class="fa-solid fa-volume-high"></i> Test Sound
+            </button>
+          </div>
+
+          <button type="submit" class="btn-primary-sidebar" id="submitHabitBtn">
+            <i class="fa-solid fa-seedling"></i> Set Habit & Alarm
+          </button>
+        </form>
+      </section>
+
+      <!-- Sidebar Productivity / Alarm Widget -->
+      <div class="sidebar-widget">
+        <div class="widget-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <div class="widget-text">
+          <strong id="nextAlarmLabel">Next Alarm</strong>
+          <p id="nextAlarmText">No active alarms set</p>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="user-pill">
+          <div class="user-avatar">🌸</div>
+          <div class="user-info">
+            <span class="user-name">TaskFlow Workspace</span>
+            <span class="user-status" id="alarmClockStatus">Live Sync & Alarms Active</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area (Right Side) -->
+    <main class="app-main-content">
+      <!-- Top Navigation Bar -->
+      <header class="top-bar">
+        <div class="top-left">
+          <button id="mobileMenuBtn" class="mobile-menu-btn" title="Open Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div>
+            <h2 class="welcome-heading" id="mainSectionHeading">My Task Lists 📋</h2>
+            <p class="current-date" id="currentDateDisplay">Loading date...</p>
+          </div>
+        </div>
+        
+        <div class="top-actions">
+          <div class="main-view-tabs">
+            <button class="view-tab active" id="viewTasksTab" data-view="tasks">
+              <i class="fa-solid fa-layer-group"></i> List Tiles
+            </button>
+            <button class="view-tab" id="viewHabitsTab" data-view="habits">
+              <i class="fa-solid fa-seedling"></i> Habits & Alarms (<span id="habitCountBadge">0</span>)
+            </button>
+          </div>
+
+          <button id="themeToggleBtn" class="icon-btn" title="Toggle Dark/Light Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- ================= TASK & LIST TILES VIEW SECTION ================= -->
+      <div id="tasksViewContainer" class="view-container">
+        
+        <!-- SEPARATE LIST TILES GRID SECTION -->
+        <section class="tiles-section">
+          <div class="tiles-header">
+            <h3 class="tiles-section-title"><i class="fa-solid fa-table-cells-large"></i> Choose a List Tile</h3>
+            <span class="tiles-hint">Click any tile to view and manage its items</span>
+          </div>
+
+          <div class="list-tiles-grid" id="listTilesGrid">
+            <!-- Dynamic List Category Tiles rendered by JavaScript -->
+          </div>
+        </section>
+
+        <!-- Selected List Active Header & Search/Filter Controls -->
+        <section class="controls-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search tasks in this list...">
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All (<span id="countAll">0</span>)</button>
+            <button class="filter-tab" data-filter="active">Active (<span id="countActive">0</span>)</button>
+            <button class="filter-tab" data-filter="completed">Completed (<span id="countCompleted">0</span>)</button>
+          </div>
+        </section>
+
+        <!-- Task List Area for the Selected Tile -->
+        <section class="task-list-container">
+          <div class="list-header">
+            <div class="current-list-title-wrap">
+              <span class="current-list-icon" id="currentListIcon">📁</span>
+              <div>
+                <h2 class="section-title" id="listHeading">All Tasks</h2>
+                <span class="list-count-subtitle" id="listCountSubtitle">Showing all tasks</span>
+              </div>
+            </div>
+            <button id="clearCompletedBtn" class="text-btn">
+              <i class="fa-regular fa-trash-can"></i> Clear Completed
+            </button>
+          </div>
+
+          <ul class="task-list" id="taskList">
+            <!-- Dynamic Task Cards with Checkbox, Edit & Delete Rendered By JavaScript -->
+          </ul>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+            <h3 id="emptyStateTitle">No items in this list</h3>
+            <p id="emptyStateDesc">Add a new item using the sidebar to get started!</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= HABITS & ALARMS VIEW SECTION ================= -->
+      <div id="habitsViewContainer" class="view-container" style="display: none;">
+        <!-- Habits Overview Header -->
+        <section class="habits-overview-card">
+          <div class="habits-overview-content">
+            <div>
+              <span class="progress-label">Habit Streaks & Timely Reminders</span>
+              <h3 class="overview-title" id="habitsSummaryStats">0 Active Habits</h3>
+              <p class="overview-subtitle">Alarms will sound automatically when reminder time arrives.</p>
+            </div>
+            <button class="btn-quick-habit" id="quickAddHabitBtn">
+              <i class="fa-solid fa-plus"></i> New Habit & Alarm
+            </button>
+          </div>
+        </section>
+
+        <!-- Habits List Grid -->
+        <section class="habits-list-container">
+          <div class="list-header">
+            <h2 class="section-title">Active Daily Habits</h2>
+            <span class="alarm-live-badge"><i class="fa-solid fa-circle-dot pulse"></i> Live Alarm Clock</span>
+          </div>
+
+          <div class="habits-grid" id="habitsGrid">
+            <!-- Dynamic Habit Cards Rendered By JavaScript -->
+          </div>
+
+          <!-- Empty State for Habits -->
+          <div class="empty-state" id="habitsEmptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-seedling"></i></div>
+            <h3>No habits created yet</h3>
+            <p>Add a new daily habit with an alarm in the sidebar to build your daily streaks!</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer Note -->
+      <footer class="app-footer">
+        <p>TaskFlow • Data saved automatically in browser • Alarms active while tab is open</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Mobile Sidebar Backdrop -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ================= EDIT TASK MODAL ================= -->
+  <div class="modal-backdrop" id="editTaskModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon"><i class="fa-solid fa-pen-to-square"></i></span>
+          <h3>Edit Task Details</h3>
+        </div>
+        <button class="modal-close-btn" id="closeEditModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="editTaskForm" class="sidebar-form">
+        <input type="hidden" id="editTaskId">
+
+        <div class="form-group">
+          <label for="editTaskTitle">Item Title (Fix typos / edit name)</label>
+          <input type="text" id="editTaskTitle" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="editTaskCategory"><i class="fa-solid fa-folder"></i> Move to List Tile</label>
+          <select id="editTaskCategory">
+            <option value="Shopping">🛒 Shopping List</option>
+            <option value="Work">💼 Work List</option>
+            <option value="Visit">✈️ Visit List</option>
+            <option value="Movie">🎬 Movie List</option>
+            <option value="Study">📚 Study List</option>
+            <option value="Health">🥗 Health List</option>
+            <option value="Personal">🏠 Personal List</option>
+            <option value="Other">✨ Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="editTaskPriority"><i class="fa-solid fa-flag"></i> Priority Level</label>
+          <select id="editTaskPriority">
+            <option value="high">🔴 High Priority</option>
+            <option value="medium">🟡 Medium Priority</option>
+            <option value="low">🟢 Low Priority</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="editTaskDueDate"><i class="fa-regular fa-calendar"></i> Due Date</label>
+          <input type="date" id="editTaskDueDate">
+        </div>
+
+        <div class="modal-btn-row">
+          <button type="button" class="btn-cancel" id="cancelEditModalBtn">Cancel</button>
+          <button type="submit" class="btn-save-edit"><i class="fa-solid fa-check"></i> Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= ALARM POPUP MODAL ================= -->
+  <div class="alarm-modal-backdrop" id="alarmModal" style="display: none;">
+    <div class="alarm-modal-card">
+      <div class="alarm-bell-animation">
+        <i class="fa-solid fa-bell ringing-bell"></i>
+      </div>
+      <span class="alarm-modal-tag">⏰ TIMELY REMINDER</span>
+      <h2 class="alarm-modal-title" id="alarmModalTitle">Time for your Habit!</h2>
+      <p class="alarm-modal-time" id="alarmModalTime">Scheduled at 08:00 AM</p>
+      
+      <div class="alarm-modal-actions">
+        <button class="btn-alarm-complete" id="alarmCompleteBtn">
+          <i class="fa-solid fa-circle-check"></i> Complete & Check-in
+        </button>
+        <button class="btn-alarm-snooze" id="alarmSnoozeBtn">
+          <i class="fa-solid fa-clock-rotate-left"></i> Snooze 5 Min
+        </button>
+        <button class="btn-alarm-dismiss" id="alarmDismissBtn">
+          <i class="fa-solid fa-xmark"></i> Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
