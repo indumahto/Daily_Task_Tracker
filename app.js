@@ -180,7 +180,7 @@ function stopAlarmLoop() {
   }
 }
 
-// DOM Elements - Sidebar Tasks Form
+// DOM Elements - Sidebar Tasks Form (Left Panel)
 const taskForm = document.getElementById("taskForm");
 const taskTitleInput = document.getElementById("taskTitleInput");
 const taskCategory = document.getElementById("taskCategory");
@@ -188,12 +188,13 @@ const customCategoryGroup = document.getElementById("customCategoryGroup");
 const customCategoryInput = document.getElementById("customCategoryInput");
 const taskDueDate = document.getElementById("taskDueDate");
 
-// DOM Elements - Inline Add Item in Selected List
+// DOM Elements - Inline Add Item in Selected List (Middle Panel)
 const inlineAddForm = document.getElementById("inlineAddForm");
 const inlineTaskTitleInput = document.getElementById("inlineTaskTitleInput");
 const inlineTaskDueDate = document.getElementById("inlineTaskDueDate");
 
 // DOM Elements - Middle Panel & Right Rail
+const rightTilesPanel = document.getElementById("rightTilesPanel");
 const listTilesGrid = document.getElementById("listTilesGrid");
 const totalTilesCountPill = document.getElementById("totalTilesCountPill");
 const taskList = document.getElementById("taskList");
@@ -502,7 +503,7 @@ function setupEventListeners() {
     selectedListId = chosenCat;
     if (taskCategory) taskCategory.value = chosenCat;
 
-    if (window.innerWidth <= 960) closeSidebar();
+    if (window.innerWidth <= 980) closeSidebar();
     render();
   });
 
@@ -530,7 +531,7 @@ function setupEventListeners() {
     habitTitleInput.value = "";
 
     switchMainView("habits");
-    if (window.innerWidth <= 960) closeSidebar();
+    if (window.innerWidth <= 980) closeSidebar();
     render();
   });
 
@@ -658,17 +659,22 @@ function switchSidebarMode(mode) {
 
 function switchMainView(view) {
   currentView = view;
+  const layout = document.querySelector(".app-layout");
   if (view === "tasks") {
     viewTasksTab.classList.add("active");
     viewHabitsTab.classList.remove("active");
-    tasksViewContainer.style.display = "grid";
+    tasksViewContainer.style.display = "flex";
     habitsViewContainer.style.display = "none";
+    if (rightTilesPanel) rightTilesPanel.style.display = "flex";
+    if (layout && window.innerWidth > 980) layout.style.gridTemplateColumns = "290px minmax(0, 1fr) 280px";
     mainSectionHeading.textContent = "Task & List Dashboard 📋";
   } else {
     viewHabitsTab.classList.add("active");
     viewTasksTab.classList.remove("active");
     habitsViewContainer.style.display = "flex";
     tasksViewContainer.style.display = "none";
+    if (rightTilesPanel) rightTilesPanel.style.display = "none";
+    if (layout && window.innerWidth > 980) layout.style.gridTemplateColumns = "290px minmax(0, 1fr)";
     mainSectionHeading.textContent = "Habits & Timely Reminders 🌱";
   }
 }

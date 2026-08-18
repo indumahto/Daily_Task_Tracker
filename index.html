@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+  <!-- 3-PANEL DASHBOARD LAYOUT -->
   <div class="app-layout">
-    <!-- Left Sidebar: Brand & Add Task/Habit Panel -->
+    
+    <!-- ================= 1. LEFT PANEL: SIDEBAR ================= -->
     <aside class="app-sidebar" id="appSidebar">
       <div class="sidebar-header">
         <div class="brand">
@@ -39,7 +41,7 @@
         </button>
       </div>
 
-      <!-- 1. Task Creation Form -->
+      <!-- Task Creation Form -->
       <section class="sidebar-section" id="taskFormSection">
         <div class="section-title-wrap">
           <span class="section-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
@@ -72,7 +74,7 @@
             </select>
           </div>
 
-          <!-- Dedicated Bar for New Custom Category -->
+          <!-- Dedicated Bar for New Custom Category in Sidebar -->
           <div class="form-group custom-category-group" id="customCategoryGroup" style="display: none;">
             <label for="customCategoryInput">
               <i class="fa-solid fa-sparkles"></i> Type New Category Name:
@@ -83,7 +85,7 @@
               placeholder="e.g., Gaming, Gardening, Finance, Anime..." 
               autocomplete="off"
             >
-            <span class="custom-category-hint">✨ Creates a new custom list tile on your dashboard!</span>
+            <span class="custom-category-hint">✨ Creates a new custom list tile!</span>
           </div>
 
           <div class="form-group">
@@ -97,7 +99,7 @@
         </form>
       </section>
 
-      <!-- 2. Habit & Alarm Creation Form -->
+      <!-- Habit & Alarm Creation Form -->
       <section class="sidebar-section" id="habitFormSection" style="display: none;">
         <div class="section-title-wrap">
           <span class="section-icon"><i class="fa-solid fa-clock"></i></span>
@@ -182,7 +184,7 @@
       </div>
     </aside>
 
-    <!-- Main Content Area (Middle & Right Panels) -->
+    <!-- ================= 2. MIDDLE PANEL: SELECTED LIST WORKSPACE ================= -->
     <main class="app-main-content">
       <!-- Top Navigation Bar -->
       <header class="top-bar">
@@ -212,95 +214,77 @@
         </div>
       </header>
 
-      <!-- ================= 3-COLUMN TASKS & VERTICAL TILES VIEW CONTAINER ================= -->
-      <div id="tasksViewContainer" class="view-container tasks-split-layout">
+      <!-- Tasks View Container -->
+      <div id="tasksViewContainer" class="middle-tasks-view">
         
-        <!-- MIDDLE PANEL: SELECTED LIST WORKSPACE -->
-        <section class="middle-workspace-panel">
-          
-          <!-- Selected List Main Header -->
-          <div class="selected-list-header-card">
-            <div class="list-title-badge-row">
-              <div class="current-list-title-wrap">
-                <span class="current-list-icon" id="currentListIcon">📁</span>
-                <div>
-                  <h2 class="section-title" id="listHeading">All Tasks</h2>
-                  <span class="list-count-subtitle" id="listCountSubtitle">Showing all tasks</span>
-                </div>
+        <!-- Selected List Header Card & Inline Quick Add Form -->
+        <div class="selected-list-header-card">
+          <div class="list-title-badge-row">
+            <div class="current-list-title-wrap">
+              <span class="current-list-icon" id="currentListIcon">📁</span>
+              <div>
+                <h2 class="section-title" id="listHeading">All Tasks</h2>
+                <span class="list-count-subtitle" id="listCountSubtitle">Showing all tasks</span>
               </div>
-              <button id="clearCompletedBtn" class="text-btn" title="Clear completed tasks in this list">
-                <i class="fa-regular fa-trash-can"></i> Clear Completed
-              </button>
             </div>
-
-            <!-- INLINE ADD ITEM BAR FOR THE SELECTED LIST -->
-            <form id="inlineAddForm" class="inline-add-item-bar">
-              <div class="inline-input-wrap">
-                <i class="fa-solid fa-plus inline-plus-icon"></i>
-                <input 
-                  type="text" 
-                  id="inlineTaskTitleInput" 
-                  placeholder="Add a new item to this list..." 
-                  required 
-                  autocomplete="off"
-                >
-              </div>
-              <div class="inline-actions-wrap">
-                <input type="date" id="inlineTaskDueDate" title="Due Date (Optional)">
-                <button type="submit" class="btn-inline-add">
-                  <i class="fa-solid fa-plus"></i> Add Item
-                </button>
-              </div>
-            </form>
+            <button id="clearCompletedBtn" class="text-btn" title="Clear completed tasks in this list">
+              <i class="fa-regular fa-trash-can"></i> Clear Completed
+            </button>
           </div>
 
-          <!-- Controls Bar (Search & Filter Tabs) -->
-          <div class="controls-bar">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" id="searchInput" placeholder="Search tasks in this list...">
+          <!-- ELEGANT INLINE ADD ITEM BAR (Single Row Unified Bar) -->
+          <form id="inlineAddForm" class="inline-add-item-bar">
+            <div class="inline-input-group">
+              <i class="fa-solid fa-plus inline-plus-icon"></i>
+              <input 
+                type="text" 
+                id="inlineTaskTitleInput" 
+                placeholder="Add a new item to this list..." 
+                required 
+                autocomplete="off"
+              >
             </div>
+            <div class="inline-date-group">
+              <i class="fa-regular fa-calendar inline-calendar-icon"></i>
+              <input type="date" id="inlineTaskDueDate" title="Due Date (Optional)">
+            </div>
+            <button type="submit" class="btn-inline-add">
+              <i class="fa-solid fa-plus"></i> Add Item
+            </button>
+          </form>
+        </div>
 
-            <div class="filter-tabs">
-              <button class="filter-tab active" data-filter="all">All (<span id="countAll">0</span>)</button>
-              <button class="filter-tab" data-filter="active">Active (<span id="countActive">0</span>)</button>
-              <button class="filter-tab" data-filter="completed">Completed (<span id="countCompleted">0</span>)</button>
-            </div>
+        <!-- Controls Bar (Search & Filter Tabs) -->
+        <div class="controls-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search tasks in this list...">
           </div>
 
-          <!-- Task List Container -->
-          <div class="task-list-container">
-            <ul class="task-list" id="taskList">
-              <!-- Dynamic Task Cards Rendered By JavaScript -->
-            </ul>
-
-            <!-- Empty State -->
-            <div class="empty-state" id="emptyState" style="display: none;">
-              <div class="empty-icon"><i class="fa-solid fa-clipboard-check"></i></div>
-              <h3 id="emptyStateTitle">No items in this list</h3>
-              <p id="emptyStateDesc">Type in the bar above to add your first item to this list!</p>
-            </div>
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All (<span id="countAll">0</span>)</button>
+            <button class="filter-tab" data-filter="active">Active (<span id="countActive">0</span>)</button>
+            <button class="filter-tab" data-filter="completed">Completed (<span id="countCompleted">0</span>)</button>
           </div>
-        </section>
+        </div>
 
-        <!-- RIGHT PANEL: VERTICAL LIST TILES RAIL -->
-        <aside class="right-tiles-panel">
-          <div class="tiles-panel-header">
-            <div class="tiles-panel-title-wrap">
-              <span class="panel-header-icon"><i class="fa-solid fa-table-cells-large"></i></span>
-              <h3 class="tiles-section-title">List Tiles</h3>
-            </div>
-            <span class="tiles-count-pill" id="totalTilesCountPill">8 Lists</span>
-          </div>
+        <!-- Task List Container -->
+        <div class="task-list-container">
+          <ul class="task-list" id="taskList">
+            <!-- Dynamic Task Cards Rendered By JavaScript -->
+          </ul>
 
-          <div class="vertical-tiles-scroll" id="listTilesGrid">
-            <!-- Dynamic Vertical Category Tiles rendered by JavaScript -->
+          <!-- Empty State -->
+          <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+            <h3 id="emptyStateTitle">No items in this list</h3>
+            <p id="emptyStateDesc">Type in the bar above to add your first item to this list!</p>
           </div>
-        </aside>
+        </div>
       </div>
 
-      <!-- ================= HABITS & ALARMS VIEW SECTION ================= -->
-      <div id="habitsViewContainer" class="view-container" style="display: none;">
+      <!-- Habits & Alarms View Container (When Switcher Tab is Selected) -->
+      <div id="habitsViewContainer" class="middle-habits-view" style="display: none;">
         <!-- Habits Overview Header -->
         <section class="habits-overview-card">
           <div class="habits-overview-content">
@@ -340,6 +324,22 @@
         <p>TaskFlow • Data saved automatically in browser • Alarms active while tab is open</p>
       </footer>
     </main>
+
+    <!-- ================= 3. RIGHT PANEL: VERTICAL LIST TILES RAIL ================= -->
+    <aside class="right-tiles-panel" id="rightTilesPanel">
+      <div class="tiles-panel-header">
+        <div class="tiles-panel-title-wrap">
+          <span class="panel-header-icon"><i class="fa-solid fa-table-cells-large"></i></span>
+          <h3 class="tiles-section-title">Category Lists</h3>
+        </div>
+        <span class="tiles-count-pill" id="totalTilesCountPill">8 Lists</span>
+      </div>
+
+      <div class="vertical-tiles-scroll" id="listTilesGrid">
+        <!-- Dynamic Vertical Category Tiles rendered by JavaScript -->
+      </div>
+    </aside>
+
   </div>
 
   <!-- Mobile Sidebar Backdrop -->

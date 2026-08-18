@@ -7,15 +7,15 @@
                  radial-gradient(at 0% 100%, rgba(196, 181, 253, 0.22) 0px, transparent 45%),
                  #fcfcfd;
   
-  --bg-card: rgba(255, 255, 255, 0.88);
-  --bg-card-secondary: rgba(248, 250, 252, 0.85);
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-secondary: rgba(248, 250, 252, 0.88);
   --bg-input: #ffffff;
   
   --text-primary: #1e1b4b;
   --text-secondary: #64748b;
   --text-muted: #94a3b8;
-  --border-color: rgba(226, 232, 240, 0.9);
-  --border-highlight: rgba(196, 181, 253, 0.7);
+  --border-color: rgba(226, 232, 240, 0.92);
+  --border-highlight: rgba(196, 181, 253, 0.75);
   
   /* Vibrant Pastel Accents */
   --baby-pink: #f472b6;
@@ -112,35 +112,36 @@ body {
   transition: background 0.4s ease, color 0.3s ease;
 }
 
-/* App Layout - Spacious 3-Panel Pro Architecture */
+/* ==========================================================================
+   3-PANEL DASHBOARD LAYOUT (Left Panel | Middle Panel | Right Panel)
+   ========================================================================== */
 .app-layout {
-  display: flex;
-  max-width: 1440px;
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr) 280px;
+  max-width: 1560px;
   margin: 0 auto;
   min-height: 100vh;
-  padding: 1.8rem 1.4rem;
-  gap: 1.5rem;
-  align-items: flex-start;
+  padding: 1.5rem 1.2rem;
+  gap: 1.35rem;
+  align-items: start;
 }
 
 /* ==========================================================================
-   Left Sidebar Styles
+   1. LEFT PANEL: SIDEBAR
    ========================================================================== */
 .app-sidebar {
-  width: 320px;
-  flex-shrink: 0;
   background: var(--bg-card);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 1.4rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.15rem;
   box-shadow: var(--shadow-md);
   position: sticky;
-  top: 1.8rem;
+  top: 1.5rem;
   transition: var(--transition);
 }
 
@@ -490,10 +491,9 @@ select:focus {
 }
 
 /* ==========================================================================
-   Main Content Area (Middle & Right Panels)
+   2. MIDDLE PANEL: SELECTED LIST WORKSPACE
    ========================================================================== */
 .app-main-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -506,7 +506,7 @@ select:focus {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .top-left {
@@ -520,10 +520,10 @@ select:focus {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-md);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -531,7 +531,7 @@ select:focus {
 }
 
 .welcome-heading {
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -539,15 +539,15 @@ select:focus {
 
 .current-date {
   color: var(--text-secondary);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  margin-top: 0.12rem;
+  margin-top: 0.1rem;
 }
 
 .top-actions {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
 }
 
 .main-view-tabs {
@@ -555,23 +555,23 @@ select:focus {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
   border: 1.5px solid var(--border-color);
-  padding: 0.35rem;
+  padding: 0.3rem;
   border-radius: 999px;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 
 .view-tab {
   background: transparent;
   border: none;
-  padding: 0.5rem 1.1rem;
+  padding: 0.48rem 1rem;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
   transition: var(--transition);
 }
 
@@ -586,8 +586,8 @@ select:focus {
   backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -605,34 +605,25 @@ select:focus {
   box-shadow: 0 4px 12px rgba(244, 114, 182, 0.25);
 }
 
-/* ==========================================================================
-   3-COLUMN SPLIT LAYOUT: MIDDLE WORKSPACE + RIGHT VERTICAL TILES
-   ========================================================================== */
-.tasks-split-layout {
-  display: grid;
-  grid-template-columns: 1fr 310px;
-  gap: 1.4rem;
-  align-items: flex-start;
-}
-
-.middle-workspace-panel {
+.middle-tasks-view,
+.middle-habits-view {
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
-  min-width: 0;
+  width: 100%;
 }
 
-/* Selected List Header Card with Inline Add Item Bar */
+/* Selected List Header Card */
 .selected-list-header-card {
   background: var(--bg-card);
   backdrop-filter: blur(18px);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 1.4rem 1.6rem;
+  padding: 1.35rem 1.5rem;
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: 1.1rem;
   position: relative;
   overflow: hidden;
 }
@@ -662,11 +653,11 @@ select:focus {
 }
 
 .current-list-icon {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
 }
 
 .section-title {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.2;
@@ -678,17 +669,19 @@ select:focus {
   font-weight: 600;
 }
 
-/* INLINE ADD ITEM BAR */
+/* ELEGANT SINGLE-ROW INLINE ADD ITEM BAR */
 .inline-add-item-bar {
   display: flex;
-  gap: 0.65rem;
+  flex-direction: row;
   align-items: center;
   background: var(--bg-card-secondary);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 0.45rem 0.65rem;
+  padding: 0.35rem 0.5rem;
+  gap: 0.55rem;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
+  width: 100%;
 }
 
 .inline-add-item-bar:focus-within {
@@ -697,57 +690,75 @@ select:focus {
   background: var(--bg-card);
 }
 
-.inline-input-wrap {
+.inline-input-group {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   flex: 1;
+  min-width: 0;
 }
 
 .inline-plus-icon {
   color: var(--baby-pink);
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-left: 0.35rem;
+  flex-shrink: 0;
 }
 
-.inline-input-wrap input {
-  border: none;
-  background: transparent;
+.inline-input-group input {
+  border: none !important;
+  background: transparent !important;
   box-shadow: none !important;
   padding: 0.45rem 0.2rem;
-  font-size: 0.94rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--text-primary);
   width: 100%;
+  outline: none;
 }
 
-.inline-actions-wrap {
+.inline-date-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.2rem 0.45rem;
+  flex-shrink: 0;
 }
 
-.inline-actions-wrap input[type="date"] {
-  width: 140px;
-  padding: 0.4rem 0.6rem;
-  font-size: 0.8rem;
-  border-radius: var(--radius-sm);
+.inline-calendar-icon {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.inline-date-group input[type="date"] {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  width: 125px;
+  padding: 0.2rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  outline: none;
 }
 
 .btn-inline-add {
   background: var(--primary-gradient);
   color: white;
   border: none;
-  padding: 0.55rem 1.15rem;
+  padding: 0.55rem 1.1rem;
   border-radius: var(--radius-sm);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   transition: var(--transition);
   white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3);
 }
 
@@ -760,7 +771,7 @@ select:focus {
 .controls-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
+  gap: 0.85rem;
   align-items: center;
   justify-content: space-between;
 }
@@ -768,7 +779,7 @@ select:focus {
 .search-box {
   position: relative;
   flex: 1;
-  min-width: 200px;
+  min-width: 180px;
 }
 
 .search-box i {
@@ -799,7 +810,7 @@ select:focus {
 .filter-tab {
   background: transparent;
   border: none;
-  padding: 0.45rem 0.9rem;
+  padding: 0.42rem 0.85rem;
   border-radius: 999px;
   font-size: 0.82rem;
   font-weight: 700;
@@ -825,7 +836,7 @@ select:focus {
   backdrop-filter: blur(18px);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 1.4rem;
+  padding: 1.35rem;
   box-shadow: var(--shadow-md);
   min-height: 280px;
 }
@@ -834,14 +845,14 @@ select:focus {
   background: none;
   border: none;
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.35rem;
   transition: var(--transition);
-  padding: 0.3rem 0.6rem;
+  padding: 0.3rem 0.55rem;
   border-radius: var(--radius-sm);
 }
 
@@ -854,7 +865,7 @@ select:focus {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.75rem;
 }
 
 /* Individual Task Card */
@@ -862,7 +873,7 @@ select:focus {
   background: var(--bg-card-secondary);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 0.95rem 1.15rem;
+  padding: 0.9rem 1.1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -885,8 +896,8 @@ select:focus {
 
 /* Custom Checkbox */
 .custom-checkbox {
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   border-radius: 8px;
   border: 2px solid var(--purple-border);
   background: var(--bg-input);
@@ -917,7 +928,7 @@ select:focus {
 }
 
 .task-title {
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.4;
@@ -997,7 +1008,7 @@ select:focus {
 }
 
 /* ==========================================================================
-   RIGHT PANEL: VERTICAL LIST TILES RAIL
+   3. RIGHT PANEL: VERTICAL LIST TILES RAIL
    ========================================================================== */
 .right-tiles-panel {
   background: var(--bg-card);
@@ -1008,27 +1019,35 @@ select:focus {
   padding: 1.25rem;
   box-shadow: var(--shadow-md);
   position: sticky;
-  top: 1.8rem;
-  max-height: calc(100vh - 3.6rem);
+  top: 1.5rem;
+  max-height: calc(100vh - 3rem);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.95rem;
+  gap: 0.9rem;
   transition: var(--transition);
+}
+
+.right-tiles-panel::-webkit-scrollbar {
+  width: 5px;
+}
+.right-tiles-panel::-webkit-scrollbar-thumb {
+  background: var(--border-highlight);
+  border-radius: 999px;
 }
 
 .tiles-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.55rem;
   border-bottom: 1px solid var(--border-color);
 }
 
 .tiles-panel-title-wrap {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .panel-header-icon {
@@ -1037,7 +1056,7 @@ select:focus {
 }
 
 .tiles-section-title {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 800;
   color: var(--text-primary);
 }
@@ -1058,17 +1077,17 @@ select:focus {
   gap: 0.65rem;
 }
 
-/* Vertical Tile Card */
+/* Vertical Category Tile Card */
 .list-tile-card {
   background: var(--bg-card-secondary);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 0.75rem 0.9rem;
+  padding: 0.75rem 0.85rem;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.4rem;
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
@@ -1125,7 +1144,7 @@ select:focus {
 }
 
 .tile-stats-text {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   font-weight: 600;
   margin-top: 0.1rem;
@@ -1265,7 +1284,7 @@ select:focus {
 
 .habits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.15rem;
 }
 
@@ -1273,10 +1292,10 @@ select:focus {
   background: var(--bg-card-secondary);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 1.3rem;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.95rem;
   transition: var(--transition);
   position: relative;
 }
@@ -1736,19 +1755,25 @@ input:checked + .slider:before {
   z-index: 99;
 }
 
-/* Responsive */
-@media (max-width: 1180px) {
-  .tasks-split-layout {
-    grid-template-columns: 1fr 260px;
-    gap: 1.1rem;
+/* ==========================================================================
+   RESPONSIVENESS (3-Panel Adaptive)
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .app-layout {
+    grid-template-columns: 270px minmax(0, 1fr) 250px;
+    gap: 1rem;
+    padding: 1.2rem 0.8rem;
+  }
+  .app-sidebar {
+    padding: 1.15rem;
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 980px) {
   .app-layout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     padding: 1.2rem 1rem;
-    gap: 1.2rem;
+    gap: 1.3rem;
   }
 
   .mobile-menu-btn {
@@ -1779,10 +1804,6 @@ input:checked + .slider:before {
     display: block;
   }
 
-  .tasks-split-layout {
-    grid-template-columns: 1fr;
-  }
-
   .right-tiles-panel {
     position: static;
     max-height: none;
@@ -1795,7 +1816,20 @@ input:checked + .slider:before {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
+  .inline-add-item-bar {
+    flex-wrap: wrap;
+  }
+  .inline-input-group {
+    width: 100%;
+  }
+  .inline-date-group {
+    flex: 1;
+  }
+  .btn-inline-add {
+    flex: 1;
+    justify-content: center;
+  }
   .controls-bar {
     flex-direction: column;
     align-items: stretch;
@@ -1807,15 +1841,5 @@ input:checked + .slider:before {
   .filter-tab {
     flex: 1;
     text-align: center;
-  }
-  .inline-add-item-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .inline-actions-wrap {
-    justify-content: space-between;
-  }
-  .inline-actions-wrap input[type="date"] {
-    flex: 1;
   }
 }
