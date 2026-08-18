@@ -68,17 +68,19 @@
               <option value="Study">📚 Study List</option>
               <option value="Health">🥗 Health List</option>
               <option value="Personal">🏠 Personal List</option>
-              <option value="Other">✨ Other</option>
+              <option value="Other">✨ Other (Create Custom Category)</option>
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="taskPriority"><i class="fa-solid fa-flag"></i> Priority Level</label>
-            <select id="taskPriority">
-              <option value="high">🔴 High Priority</option>
-              <option value="medium" selected>🟡 Medium Priority</option>
-              <option value="low">🟢 Low Priority</option>
-            </select>
+          <!-- Dynamic Custom Category Input (shown when 'Other' is chosen) -->
+          <div class="form-group custom-category-group" id="customCategoryGroup" style="display: none;">
+            <label for="customCategoryInput"><i class="fa-solid fa-sparkles"></i> Custom Category Name</label>
+            <input 
+              type="text" 
+              id="customCategoryInput" 
+              placeholder="e.g., Gaming, Gardening, Finance..." 
+              autocomplete="off"
+            >
           </div>
 
           <div class="form-group">
@@ -214,7 +216,7 @@
         <section class="tiles-section">
           <div class="tiles-header">
             <h3 class="tiles-section-title"><i class="fa-solid fa-table-cells-large"></i> Choose a List Tile</h3>
-            <span class="tiles-hint">Click any tile to view and manage its items</span>
+            <span class="tiles-hint">Click any tile to view items or choose Other to create your own category</span>
           </div>
 
           <div class="list-tiles-grid" id="listTilesGrid">
@@ -339,17 +341,19 @@
             <option value="Study">📚 Study List</option>
             <option value="Health">🥗 Health List</option>
             <option value="Personal">🏠 Personal List</option>
-            <option value="Other">✨ Other</option>
+            <option value="Other">✨ Other (Create Custom Category)</option>
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="editTaskPriority"><i class="fa-solid fa-flag"></i> Priority Level</label>
-          <select id="editTaskPriority">
-            <option value="high">🔴 High Priority</option>
-            <option value="medium">🟡 Medium Priority</option>
-            <option value="low">🟢 Low Priority</option>
-          </select>
+        <!-- Dynamic Custom Category Input in Edit Modal -->
+        <div class="form-group custom-category-group" id="editCustomCategoryGroup" style="display: none;">
+          <label for="editCustomCategoryInput"><i class="fa-solid fa-sparkles"></i> New Category Name</label>
+          <input 
+            type="text" 
+            id="editCustomCategoryInput" 
+            placeholder="e.g., Gaming, Gardening, Finance..." 
+            autocomplete="off"
+          >
         </div>
 
         <div class="form-group">

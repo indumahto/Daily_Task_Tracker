@@ -276,6 +276,29 @@ body {
   gap: 0.35rem;
 }
 
+/* Custom Category Input Highlight */
+.custom-category-group {
+  background: var(--purple-light);
+  border: 1.5px solid var(--purple-border);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  animation: slide-down 0.25s ease;
+}
+
+.custom-category-group label {
+  color: var(--blue-purple);
+  font-weight: 800;
+}
+
+.custom-category-group input {
+  border-color: var(--purple-border);
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 input[type="text"],
 input[type="date"],
 input[type="time"],
@@ -705,6 +728,15 @@ select:focus {
 .tile-health { border-color: var(--light-green-border); }
 .tile-health:hover, .tile-health.active { border-color: var(--light-green); }
 
+.tile-personal { border-color: #e9d5ff; }
+.tile-personal:hover, .tile-personal.active { border-color: #7e22ce; }
+
+.tile-custom { border-color: #fbcfe8; background: linear-gradient(135deg, rgba(253, 242, 248, 0.6), rgba(243, 232, 255, 0.6)); }
+.tile-custom:hover, .tile-custom.active { border-color: #ec4899; }
+
+.tile-other { border-style: dashed; border-color: var(--border-highlight); }
+.tile-other:hover { border-color: var(--baby-pink); }
+
 /* Controls Bar */
 .controls-bar {
   display: flex;
@@ -935,10 +967,6 @@ select:focus {
 .badge-health { background: var(--light-green-bg); color: #047857; border-color: var(--light-green-border); }
 .badge-personal { background: #f3e8ff; color: #7e22ce; border-color: #e9d5ff; }
 .badge-other { background: #fef3c7; color: #b45309; border-color: #fde68a; }
-
-.badge-priority-high { background: #ffe4e6; color: #e11d48; border-color: #fecdd3; font-weight: 800; }
-.badge-priority-medium { background: #fef3c7; color: #d97706; border-color: #fde68a; }
-.badge-priority-low { background: #ecfdf5; color: #059669; border-color: #a7f3d0; }
 .badge-date { color: var(--text-secondary); font-size: 0.74rem; background: var(--bg-card); border: 1px solid var(--border-color); }
 
 .task-actions {

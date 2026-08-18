@@ -1,7 +1,7 @@
-// TaskFlow • Daily Tasks, Separate List Tiles & Habit Alarms Engine
+// TaskFlow • Daily Tasks, Dynamic List Tiles & Habit Alarms Engine
 
-// List Category Definitions
-const LIST_CATEGORIES = [
+// Base Predefined List Categories
+const BASE_CATEGORIES = [
   { id: "all", name: "All Tasks", icon: "📁", badgeClass: "badge-other", colorClass: "tile-all" },
   { id: "Shopping", name: "Shopping List", icon: "🛒", badgeClass: "badge-shopping", colorClass: "tile-shopping" },
   { id: "Work", name: "Work List", icon: "💼", badgeClass: "badge-work", colorClass: "tile-work" },
@@ -12,13 +12,12 @@ const LIST_CATEGORIES = [
   { id: "Personal", name: "Personal List", icon: "🏠", badgeClass: "badge-personal", colorClass: "tile-personal" }
 ];
 
-// Initial Sample Tasks across different list tiles
+// Initial Sample Tasks (without priority)
 const DEFAULT_TASKS = [
   {
     id: "task-1",
     title: "Buy organic milk, sourdough bread, and avocado",
     category: "Shopping",
-    priority: "high",
     dueDate: new Date().toISOString().split("T")[0],
     completed: false,
     createdAt: Date.now() - 3600000 * 5
@@ -27,7 +26,6 @@ const DEFAULT_TASKS = [
     id: "task-2",
     title: "Prepare quarterly UI roadmap presentation",
     category: "Work",
-    priority: "high",
     dueDate: new Date().toISOString().split("T")[0],
     completed: true,
     createdAt: Date.now() - 3600000 * 4
@@ -36,7 +34,6 @@ const DEFAULT_TASKS = [
     id: "task-3",
     title: "Visit art exhibition & botanical gardens this weekend",
     category: "Visit",
-    priority: "medium",
     dueDate: "",
     completed: false,
     createdAt: Date.now() - 3600000 * 3
@@ -45,7 +42,6 @@ const DEFAULT_TASKS = [
     id: "task-4",
     title: "Watch Inception or Interstellar with friends",
     category: "Movie",
-    priority: "low",
     dueDate: "",
     completed: false,
     createdAt: Date.now() - 3600000 * 2
@@ -54,7 +50,6 @@ const DEFAULT_TASKS = [
     id: "task-5",
     title: "Review JavaScript async/await & Web Audio API",
     category: "Study",
-    priority: "medium",
     dueDate: new Date().toISOString().split("T")[0],
     completed: false,
     createdAt: Date.now() - 3600000 * 1
@@ -63,7 +58,6 @@ const DEFAULT_TASKS = [
     id: "task-6",
     title: "30-minute cardio & core workout",
     category: "Health",
-    priority: "low",
     dueDate: "",
     completed: true,
     createdAt: Date.now()
@@ -110,6 +104,7 @@ const DEFAULT_HABITS = [
 // App State
 let tasks = [];
 let habits = [];
+let customCategories = [];
 let selectedListId = "all";
 let currentFilter = "all";
 let searchQuery = "";
@@ -124,13 +119,9 @@ let audioCtx = null;
 function getAudioContext() {
   if (!audioCtx) {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (AudioContextClass) {
-      audioCtx = new AudioContextClass();
-    }
+    if (AudioContextClass) audioCtx = new AudioContextClass();
   }
-  if (audioCtx && audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
+  if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
   return audioCtx;
 }
 
@@ -193,8 +184,10 @@ function stopAlarmLoop() {
 const taskForm = document.getElementById("taskForm");
 const taskTitleInput = document.getElementById("taskTitleInput");
 const taskCategory = document.getElementById("taskCategory");
-const taskPriority = document.getElementById("taskPriority");
+const customCategoryGroup = document.getElementById("customCategoryGroup");
+const customCategoryInput = document.getElementById("customCategoryInput");
 const taskDueDate = document.getElementById("taskDueDate");
+
 const listTilesGrid = document.getElementById("listTilesGrid");
 const taskList = document.getElementById("taskList");
 const emptyState = document.getElementById("emptyState");
@@ -253,7 +246,8 @@ const editTaskForm = document.getElementById("editTaskForm");
 const editTaskId = document.getElementById("editTaskId");
 const editTaskTitle = document.getElementById("editTaskTitle");
 const editTaskCategory = document.getElementById("editTaskCategory");
-const editTaskPriority = document.getElementById("editTaskPriority");
+const editCustomCategoryGroup = document.getElementById("editCustomCategoryGroup");
+const editCustomCategoryInput = document.getElementById("editCustomCategoryInput");
 const editTaskDueDate = document.getElementById("editTaskDueDate");
 const closeEditModalBtn = document.getElementById("closeEditModalBtn");
 const cancelEditModalBtn = document.getElementById("cancelEditModalBtn");
@@ -270,6 +264,7 @@ const alarmDismissBtn = document.getElementById("alarmDismissBtn");
 function init() {
   loadTheme();
   loadData();
+  populateCategoryDropdowns();
   displayCurrentDate();
   setDefaultHabitTime();
   setupEventListeners();
@@ -298,7 +293,20 @@ function requestNotificationPermission() {
 
 // Load data from LocalStorage
 function loadData() {
-  const savedTasks = localStorage.getItem("daily_tasks_data_v2");
+  // Load Custom Categories
+  const savedCustom = localStorage.getItem("custom_user_categories_v1");
+  if (savedCustom) {
+    try {
+      customCategories = JSON.parse(savedCustom);
+    } catch (e) {
+      customCategories = [];
+    }
+  } else {
+    customCategories = [];
+  }
+
+  // Load Tasks
+  const savedTasks = localStorage.getItem("daily_tasks_data_v4");
   if (savedTasks) {
     try {
       tasks = JSON.parse(savedTasks);
@@ -310,6 +318,7 @@ function loadData() {
     saveTasks();
   }
 
+  // Load Habits
   const savedHabits = localStorage.getItem("daily_habits_data");
   if (savedHabits) {
     try {
@@ -323,12 +332,40 @@ function loadData() {
   }
 }
 
+function saveCustomCategories() {
+  localStorage.setItem("custom_user_categories_v1", JSON.stringify(customCategories));
+}
+
 function saveTasks() {
-  localStorage.setItem("daily_tasks_data_v2", JSON.stringify(tasks));
+  localStorage.setItem("daily_tasks_data_v4", JSON.stringify(tasks));
 }
 
 function saveHabits() {
   localStorage.setItem("daily_habits_data", JSON.stringify(habits));
+}
+
+function getAllCategories() {
+  return [
+    ...BASE_CATEGORIES,
+    ...customCategories,
+    { id: "Other", name: "+ Other / Custom", icon: "✨", badgeClass: "badge-other", colorClass: "tile-other", isOtherAction: true }
+  ];
+}
+
+function populateCategoryDropdowns() {
+  const standardAndCustom = [
+    ...BASE_CATEGORIES.filter((c) => c.id !== "all"),
+    ...customCategories
+  ];
+
+  let optionsHtml = standardAndCustom
+    .map((c) => `<option value="${c.id}">${c.icon} ${c.name}</option>`)
+    .join("");
+
+  optionsHtml += `<option value="Other">✨ Other (Create Custom Category)</option>`;
+
+  if (taskCategory) taskCategory.innerHTML = optionsHtml;
+  if (editTaskCategory) editTaskCategory.innerHTML = optionsHtml;
 }
 
 function displayCurrentDate() {
@@ -360,19 +397,52 @@ function setupEventListeners() {
     });
   }
 
+  // Task Category Dropdown Change (Toggle Custom Category Input)
+  if (taskCategory && customCategoryGroup) {
+    taskCategory.addEventListener("change", () => {
+      if (taskCategory.value === "Other") {
+        customCategoryGroup.style.display = "flex";
+        if (customCategoryInput) customCategoryInput.focus();
+      } else {
+        customCategoryGroup.style.display = "none";
+      }
+    });
+  }
+
+  // Edit Task Category Dropdown Change
+  if (editTaskCategory && editCustomCategoryGroup) {
+    editTaskCategory.addEventListener("change", () => {
+      if (editTaskCategory.value === "Other") {
+        editCustomCategoryGroup.style.display = "flex";
+        if (editCustomCategoryInput) editCustomCategoryInput.focus();
+      } else {
+        editCustomCategoryGroup.style.display = "none";
+      }
+    });
+  }
+
   // Task Form Submit
   taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const title = taskTitleInput.value.trim();
     if (!title) return;
 
-    const chosenCat = taskCategory.value;
+    let chosenCat = taskCategory.value;
+
+    // Handle Custom Category creation if 'Other' was chosen
+    if (chosenCat === "Other") {
+      const customName = customCategoryInput ? customCategoryInput.value.trim() : "";
+      if (customName) {
+        chosenCat = createOrGetCustomCategory(customName);
+      } else {
+        chosenCat = "Personal";
+      }
+    }
 
     const newTask = {
       id: "task-" + Date.now(),
       title: title,
       category: chosenCat,
-      priority: taskPriority.value,
       dueDate: taskDueDate.value,
       completed: false,
       createdAt: Date.now()
@@ -382,8 +452,11 @@ function setupEventListeners() {
     saveTasks();
     taskTitleInput.value = "";
     taskDueDate.value = "";
+    if (customCategoryInput) customCategoryInput.value = "";
+    if (customCategoryGroup) customCategoryGroup.style.display = "none";
 
     selectedListId = chosenCat;
+    if (taskCategory) taskCategory.value = chosenCat;
 
     if (window.innerWidth <= 960) closeSidebar();
     render();
@@ -478,9 +551,7 @@ function setupEventListeners() {
   // Alarm Modal Listeners
   if (alarmCompleteBtn) {
     alarmCompleteBtn.addEventListener("click", () => {
-      if (activeAlarmHabit) {
-        checkInHabit(activeAlarmHabit.id);
-      }
+      if (activeAlarmHabit) checkInHabit(activeAlarmHabit.id);
       closeAlarmModal();
     });
   }
@@ -499,17 +570,44 @@ function setupEventListeners() {
   }
 }
 
+// Helper: Create custom category and add to state if new
+function createOrGetCustomCategory(rawName) {
+  const formattedName = rawName.trim();
+  const id = formattedName.replace(/\s+/g, "_");
+
+  // Check if exists in base or custom
+  const existing = getAllCategories().find(
+    (c) => c.id.toLowerCase() === id.toLowerCase() || c.name.toLowerCase() === formattedName.toLowerCase()
+  );
+
+  if (existing) return existing.id;
+
+  const newCat = {
+    id: id,
+    name: formattedName.endsWith("List") ? formattedName : `${formattedName} List`,
+    icon: "🏷️",
+    badgeClass: "badge-other",
+    colorClass: "tile-custom",
+    isCustom: true
+  };
+
+  customCategories.push(newCat);
+  saveCustomCategories();
+  populateCategoryDropdowns();
+  return id;
+}
+
 // Mode & View Switching
 function switchSidebarMode(mode) {
   if (mode === "task") {
     modeTaskBtn.classList.add("active");
     modeHabitBtn.classList.remove("active");
-    taskFormSection.style.display = "block";
+    taskFormSection.style.display = "flex";
     habitFormSection.style.display = "none";
   } else {
     modeHabitBtn.classList.add("active");
     modeTaskBtn.classList.remove("active");
-    habitFormSection.style.display = "block";
+    habitFormSection.style.display = "flex";
     taskFormSection.style.display = "none";
   }
 }
@@ -553,8 +651,40 @@ function render() {
 function renderListTiles() {
   listTilesGrid.innerHTML = "";
 
-  LIST_CATEGORIES.forEach((cat) => {
+  const allCats = getAllCategories();
+
+  allCats.forEach((cat) => {
     const card = document.createElement("div");
+
+    // Special "+ Other / Custom" Action Tile
+    if (cat.isOtherAction) {
+      card.className = "list-tile-card tile-other";
+      card.innerHTML = `
+        <div class="tile-top">
+          <span class="tile-icon">✨</span>
+          <span class="tile-badge-count">+ New</span>
+        </div>
+        <div class="tile-info">
+          <h4>Custom Category</h4>
+          <div class="tile-stats-text">Click to Create</div>
+        </div>
+        <div class="tile-progress-bar">
+          <div class="tile-progress-fill" style="width: 100%; opacity: 0.3;"></div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        switchSidebarMode("task");
+        if (taskCategory) taskCategory.value = "Other";
+        if (customCategoryGroup) customCategoryGroup.style.display = "flex";
+        if (customCategoryInput) customCategoryInput.focus();
+        openSidebar();
+      });
+
+      listTilesGrid.appendChild(card);
+      return;
+    }
+
     const isActive = selectedListId === cat.id;
     card.className = `list-tile-card ${cat.colorClass} ${isActive ? "active" : ""}`;
 
@@ -569,7 +699,7 @@ function renderListTiles() {
         <span class="tile-badge-count">${completed}/${total}</span>
       </div>
       <div class="tile-info">
-        <h4>${cat.name}</h4>
+        <h4>${escapeHtml(cat.name)}</h4>
         <div class="tile-stats-text">${percent}% Done</div>
       </div>
       <div class="tile-progress-bar">
@@ -581,6 +711,7 @@ function renderListTiles() {
       selectedListId = cat.id;
       if (cat.id !== "all" && taskCategory) {
         taskCategory.value = cat.id;
+        if (customCategoryGroup) customCategoryGroup.style.display = "none";
       }
       renderListTiles();
       renderTasksListOnly();
@@ -590,9 +721,9 @@ function renderListTiles() {
   });
 }
 
-// Render Task List Items for Selected Tile
+// Render Task List Items for Selected Tile (No Priority)
 function renderTasksListOnly() {
-  const currentCatObj = LIST_CATEGORIES.find((c) => c.id === selectedListId) || LIST_CATEGORIES[0];
+  const currentCatObj = getAllCategories().find((c) => c.id === selectedListId) || BASE_CATEGORIES[0];
   if (listHeading) listHeading.textContent = currentCatObj.name;
   if (currentListIcon) currentListIcon.textContent = currentCatObj.icon;
 
@@ -639,22 +770,16 @@ function renderTasksListOnly() {
   }
 }
 
-// Create Task Element with Checkbox, Edit & Delete Buttons
+// Create Task Element with Checkbox, Edit & Delete Buttons (No Priority)
 function createTaskElement(task) {
   const li = document.createElement("li");
   li.className = `task-item ${task.completed ? "completed" : ""}`;
   li.dataset.id = task.id;
 
-  const categoryObj = LIST_CATEGORIES.find((c) => c.id === task.category) || {
+  const categoryObj = getAllCategories().find((c) => c.id === task.category) || {
     name: task.category,
     icon: "🏷️",
     badgeClass: "badge-other"
-  };
-
-  const priorityLabels = {
-    high: "🔴 High",
-    medium: "🟡 Medium",
-    low: "🟢 Low"
   };
 
   li.innerHTML = `
@@ -665,8 +790,7 @@ function createTaskElement(task) {
       <div class="task-details">
         <span class="task-title">${escapeHtml(task.title)}</span>
         <div class="task-meta">
-          <span class="badge ${categoryObj.badgeClass}">${categoryObj.icon} ${categoryObj.name}</span>
-          <span class="badge badge-priority-${task.priority}">${priorityLabels[task.priority]}</span>
+          <span class="badge ${categoryObj.badgeClass}">${categoryObj.icon} ${escapeHtml(categoryObj.name)}</span>
           ${task.dueDate ? `<span class="badge badge-date"><i class="fa-regular fa-clock"></i> ${formatDate(task.dueDate)}</span>` : ""}
         </div>
       </div>
@@ -712,8 +836,10 @@ window.openEditModal = function (id) {
   editTaskId.value = task.id;
   editTaskTitle.value = task.title;
   editTaskCategory.value = task.category;
-  editTaskPriority.value = task.priority;
   editTaskDueDate.value = task.dueDate || "";
+
+  if (editCustomCategoryGroup) editCustomCategoryGroup.style.display = "none";
+  if (editCustomCategoryInput) editCustomCategoryInput.value = "";
 
   editTaskModal.style.display = "flex";
   editTaskTitle.focus();
@@ -731,9 +857,20 @@ function saveTaskEdits() {
   const newTitle = editTaskTitle.value.trim();
   if (!newTitle) return;
 
+  let chosenCat = editTaskCategory.value;
+
+  // Handle Custom Category creation if 'Other' was chosen in Edit Modal
+  if (chosenCat === "Other") {
+    const customName = editCustomCategoryInput ? editCustomCategoryInput.value.trim() : "";
+    if (customName) {
+      chosenCat = createOrGetCustomCategory(customName);
+    } else {
+      chosenCat = task.category;
+    }
+  }
+
   task.title = newTitle;
-  task.category = editTaskCategory.value;
-  task.priority = editTaskPriority.value;
+  task.category = chosenCat;
   task.dueDate = editTaskDueDate.value;
 
   saveTasks();
