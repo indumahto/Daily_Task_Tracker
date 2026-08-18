@@ -1,45 +1,51 @@
 :root {
   /* ==========================================================================
-     USER PALETTE PALETTE SYSTEM (Clean, Separate Colors - No Mixed Gradients):
-     1. #b84a62 (Rich Berry Rose)
+     USER PALETTE PALETTE SYSTEM (Clean, Separate Colors - Zero Mixed Gradients):
+     1. #b84a62 (Dusty Red / Berry Rose)
      2. #d6bfa2 (Warm Biscuit Sand)
      3. #fdf8e7 (Vanilla Cream)
-     4. #b8e2cb (Mint Sage)
-     5. #4ea8a1 (Ocean Teal)
+     4. #b8e2cb (Mint Sage Green)
+     5. #4ea8a1 (Ocean Teal Green)
      ========================================================================== */
 
-  /* Palette Core Colors */
-  --c-berry: #b84a62;
-  --c-berry-hover: #a33e54;
-  --c-berry-bg: #fae8eb;
-  --c-berry-active: #f5cfd7;
-  --c-berry-text: #7d2238;
+  /* 1. Dusty Red / Berry */
+  --c-dusty-red: #b84a62;
+  --c-dusty-red-hover: #9e3a50;
+  --c-dusty-red-bg: #fbebee;
+  --c-dusty-red-border: #b84a62;
+  --c-dusty-red-text: #7d2238;
 
+  /* 2. Warm Biscuit Sand */
   --c-biscuit: #d6bfa2;
   --c-biscuit-dark: #b89c77;
-  --c-biscuit-bg: #f7efe4;
-  --c-biscuit-active: #eedfcb;
+  --c-biscuit-hover: #a38763;
+  --c-biscuit-bg: #f8f1e7;
+  --c-biscuit-border: #d6bfa2;
   --c-biscuit-text: #6e4c22;
 
+  /* 3. Vanilla Cream */
   --c-cream: #fdf8e7;
   --c-cream-bg: #fdf8e7;
-  --c-cream-active: #f8eebf;
   --c-cream-border: #d6c596;
   --c-cream-text: #3d3725;
   
-  --c-sage: #b8e2cb;
-  --c-sage-dark: #2d825f;
-  --c-sage-bg: #e8f7ee;
-  --c-sage-active: #d2f0df;
-  --c-sage-text: #1d6445;
+  /* 4. Mint Sage Green */
+  --c-mint: #b8e2cb;
+  --c-mint-dark: #2d825f;
+  --c-mint-hover: #9fd0b6;
+  --c-mint-bg: #eaf7f0;
+  --c-mint-border: #b8e2cb;
+  --c-mint-text: #1d6445;
 
+  /* 5. Ocean Teal Green */
   --c-teal: #4ea8a1;
   --c-teal-dark: #357f79;
-  --c-teal-bg: #e2f4f2;
-  --c-teal-active: #c5eae6;
+  --c-teal-hover: #3d928b;
+  --c-teal-bg: #e5f5f3;
+  --c-teal-border: #4ea8a1;
   --c-teal-text: #1b5d57;
 
-  /* Theme Backgrounds & Surfaces (Pure Solid Backgrounds - No Mixed Halos) */
+  /* Surfaces & Clean Solid Canvas */
   --bg-base: #fcf9ee;
   --bg-card: #ffffff;
   --bg-card-secondary: #fdf8e7;
@@ -51,21 +57,14 @@
   --border-color: #e5dbca;
   --border-highlight: #4ea8a1;
   
-  /* Solid Primary Accents */
-  --primary-color: #b84a62;
-  --primary-hover: #a33e54;
-  --teal-color: #4ea8a1;
-  --sage-color: #b8e2cb;
-  --biscuit-color: #d6bfa2;
-  
-  --shadow-sm: 0 2px 6px rgba(35, 31, 40, 0.04);
-  --shadow-md: 0 6px 20px rgba(35, 31, 40, 0.08);
-  --shadow-lg: 0 14px 32px rgba(35, 31, 40, 0.12);
+  --shadow-sm: 0 2px 5px rgba(35, 31, 40, 0.04);
+  --shadow-md: 0 4px 14px rgba(35, 31, 40, 0.07);
+  --shadow-lg: 0 10px 28px rgba(35, 31, 40, 0.1);
   
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 22px;
-  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.2s ease;
 }
 
 [data-theme="dark"] {
@@ -80,29 +79,28 @@
   --border-color: #2b333e;
   --border-highlight: #4ea8a1;
   
-  --c-berry-bg: #2d1a21;
-  --c-berry-active: #3d202b;
-  --c-berry-text: #f49ab0;
+  --c-dusty-red-bg: #2d1a21;
+  --c-dusty-red-border: #b84a62;
+  --c-dusty-red-text: #f49ab0;
 
   --c-biscuit-bg: #2c251d;
-  --c-biscuit-active: #3a3124;
+  --c-biscuit-border: #b89c77;
   --c-biscuit-text: #e8d0b5;
 
   --c-cream-bg: #28271e;
-  --c-cream-active: #353325;
-  --c-cream-border: #4d4933;
+  --c-cream-border: #d6c596;
   --c-cream-text: #faebba;
 
-  --c-sage-bg: #182820;
-  --c-sage-active: #20352a;
-  --c-sage-text: #a2e0bd;
+  --c-mint-bg: #182820;
+  --c-mint-border: #2d825f;
+  --c-mint-text: #a2e0bd;
 
   --c-teal-bg: #152627;
-  --c-teal-active: #1d3536;
+  --c-teal-border: #4ea8a1;
   --c-teal-text: #7ad1ca;
 
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.65);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -134,10 +132,10 @@ body {
 }
 
 /* ==========================================================================
-   1. LEFT PANEL: SIDEBAR
+   1. LEFT PANEL: SIDEBAR (Solid Dusty Red Primary Theme)
    ========================================================================== */
 .app-sidebar {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.4rem;
@@ -164,23 +162,24 @@ body {
   gap: 0.75rem;
 }
 
+/* Solid Dusty Red Badge */
 .brand-badge {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background-color: var(--c-berry);
+  background-color: var(--c-dusty-red);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.15rem;
-  box-shadow: 0 4px 10px rgba(184, 74, 98, 0.3);
 }
 
+/* Solid Dusty Red Title */
 .brand-title {
   font-size: 1.3rem;
   font-weight: 800;
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
   line-height: 1.1;
 }
 
@@ -204,8 +203,8 @@ body {
 /* Sidebar Mode Switcher */
 .sidebar-mode-switcher {
   display: flex;
-  background: var(--bg-card-secondary);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-card-secondary);
+  border: 1.5px solid var(--border-color);
   padding: 0.3rem;
   border-radius: var(--radius-md);
   gap: 0.3rem;
@@ -229,10 +228,9 @@ body {
 }
 
 .mode-btn.active {
-  background: var(--bg-input);
-  color: var(--c-berry);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--c-berry);
+  background-color: var(--bg-input);
+  color: var(--c-dusty-red);
+  border: 1.5px solid var(--c-dusty-red);
 }
 
 /* Sidebar Forms */
@@ -249,7 +247,7 @@ body {
 }
 
 .section-icon {
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
   font-size: 1.05rem;
 }
 
@@ -282,8 +280,8 @@ body {
 
 /* Custom Category Input Bar */
 .custom-category-group {
-  background-color: var(--c-berry-bg);
-  border: 2px dashed var(--c-berry);
+  background-color: var(--c-dusty-red-bg);
+  border: 2px dashed var(--c-dusty-red);
   padding: 0.8rem;
   border-radius: var(--radius-md);
   animation: slide-down 0.25s ease;
@@ -293,26 +291,26 @@ body {
 }
 
 .custom-category-group label {
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
   font-weight: 800;
   font-size: 0.8rem;
 }
 
 .custom-category-group input {
-  border: 1.5px solid var(--c-berry);
+  border: 1.5px solid var(--c-dusty-red);
   background: var(--bg-input);
   font-weight: 600;
 }
 
 .custom-category-group input:focus {
-  border-color: var(--c-berry);
-  box-shadow: 0 0 0 3.5px rgba(184, 74, 98, 0.2);
+  border-color: var(--c-dusty-red);
+  outline: 2px solid var(--c-dusty-red);
 }
 
 .custom-category-hint {
   font-size: 0.7rem;
   font-weight: 600;
-  color: var(--c-berry-text);
+  color: var(--c-dusty-red-text);
   line-height: 1.2;
 }
 
@@ -342,7 +340,7 @@ input[type="date"]:focus,
 input[type="time"]:focus,
 select:focus {
   border-color: var(--c-teal);
-  box-shadow: 0 0 0 3px rgba(78, 168, 161, 0.2);
+  outline: 2px solid rgba(78, 168, 161, 0.3);
 }
 
 .alarm-toggle-row {
@@ -365,14 +363,14 @@ select:focus {
 .checkbox-label input[type="checkbox"] {
   width: 17px;
   height: 17px;
-  accent-color: var(--c-berry);
+  accent-color: var(--c-dusty-red);
   cursor: pointer;
 }
 
 .btn-test-sound {
-  background-color: var(--c-sage-bg);
-  border: 1px solid var(--c-sage);
-  color: var(--c-sage-text);
+  background-color: var(--c-mint-bg);
+  border: 1.5px solid var(--c-mint);
+  color: var(--c-mint-text);
   padding: 0.32rem 0.7rem;
   border-radius: 999px;
   font-size: 0.74rem;
@@ -385,13 +383,14 @@ select:focus {
 }
 
 .btn-test-sound:hover {
-  background-color: var(--c-sage);
-  color: #0e432d;
+  background-color: var(--c-mint);
+  color: #0d432c;
 }
 
+/* SOLID DUSTY RED PRIMARY BUTTON: ADD TO LIST */
 .btn-primary-sidebar {
-  background-color: var(--c-berry);
-  color: white;
+  background-color: var(--c-dusty-red);
+  color: #ffffff;
   border: none;
   padding: 0.8rem 1.2rem;
   border-radius: var(--radius-md);
@@ -404,18 +403,17 @@ select:focus {
   gap: 0.5rem;
   margin-top: 0.2rem;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(184, 74, 98, 0.3);
 }
 
 .btn-primary-sidebar:hover {
-  background-color: var(--c-berry-hover);
+  background-color: var(--c-dusty-red-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(184, 74, 98, 0.4);
 }
 
+/* SOLID MINT SAGE WIDGET */
 .sidebar-widget {
-  background-color: var(--c-sage-bg);
-  border: 1.5px solid var(--c-sage);
+  background-color: var(--c-mint-bg);
+  border: 1.5px solid var(--c-mint);
   border-radius: var(--radius-md);
   padding: 0.8rem 0.95rem;
   display: flex;
@@ -424,7 +422,7 @@ select:focus {
 }
 
 .widget-icon {
-  color: var(--c-sage-text);
+  color: var(--c-mint-text);
   font-size: 1.1rem;
   margin-top: 0.1rem;
 }
@@ -433,7 +431,7 @@ select:focus {
   display: block;
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--c-sage-text);
+  color: var(--c-mint-text);
   margin-bottom: 0.2rem;
 }
 
@@ -456,7 +454,7 @@ select:focus {
   padding: 0.45rem 0.55rem;
   border-radius: var(--radius-md);
   background-color: var(--bg-card-secondary);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
 }
 
 .user-avatar {
@@ -476,12 +474,12 @@ select:focus {
 
 .user-status {
   font-size: 0.7rem;
-  color: var(--c-teal);
+  color: var(--c-teal-dark);
   font-weight: 700;
 }
 
 /* ==========================================================================
-   2. MIDDLE PANEL: SELECTED LIST WORKSPACE
+   2. MIDDLE PANEL: SELECTED LIST WORKSPACE (Green Add Button & Teal Tabs)
    ========================================================================== */
 .app-main-content {
   display: flex;
@@ -507,7 +505,7 @@ select:focus {
 
 .mobile-menu-btn {
   display: none;
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   color: var(--text-primary);
   width: 40px;
@@ -517,7 +515,6 @@ select:focus {
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-sm);
 }
 
 .welcome-heading {
@@ -542,7 +539,7 @@ select:focus {
 
 .main-view-tabs {
   display: flex;
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   padding: 0.3rem;
   border-radius: 999px;
@@ -564,14 +561,14 @@ select:focus {
   transition: var(--transition);
 }
 
+/* Solid Dusty Red View Tab */
 .view-tab.active {
-  background-color: var(--c-berry);
-  color: white;
-  box-shadow: 0 2px 8px rgba(184, 74, 98, 0.3);
+  background-color: var(--c-dusty-red);
+  color: #ffffff;
 }
 
 .icon-btn {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   color: var(--text-primary);
   width: 40px;
@@ -583,14 +580,13 @@ select:focus {
   justify-content: center;
   font-size: 1.05rem;
   transition: var(--transition);
-  box-shadow: var(--shadow-sm);
 }
 
 .icon-btn:hover {
   transform: translateY(-2px);
-  border-color: var(--c-berry);
-  background-color: var(--c-berry-bg);
-  color: var(--c-berry);
+  border-color: var(--c-dusty-red);
+  background-color: var(--c-dusty-red-bg);
+  color: var(--c-dusty-red);
 }
 
 .middle-tasks-view,
@@ -603,7 +599,7 @@ select:focus {
 
 /* Selected List Header Card */
 .selected-list-header-card {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.35rem 1.5rem;
@@ -622,7 +618,7 @@ select:focus {
   left: 0;
   right: 0;
   height: 3.5px;
-  background-color: var(--c-berry);
+  background-color: var(--c-teal);
 }
 
 .list-title-badge-row {
@@ -666,14 +662,12 @@ select:focus {
   border-radius: var(--radius-md);
   padding: 0.35rem 0.5rem;
   gap: 0.55rem;
-  box-shadow: var(--shadow-sm);
   transition: var(--transition);
   width: 100%;
 }
 
 .inline-add-item-bar:focus-within {
   border-color: var(--c-teal);
-  box-shadow: 0 0 0 3px rgba(78, 168, 161, 0.2);
   background-color: var(--bg-card);
 }
 
@@ -686,7 +680,7 @@ select:focus {
 }
 
 .inline-plus-icon {
-  color: var(--c-berry);
+  color: var(--c-teal-dark);
   font-size: 1rem;
   margin-left: 0.35rem;
   flex-shrink: 0;
@@ -708,8 +702,8 @@ select:focus {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-input);
+  border: 1.5px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: 0.2rem 0.45rem;
   flex-shrink: 0;
@@ -731,14 +725,15 @@ select:focus {
   outline: none;
 }
 
+/* SOLID GREEN / OCEAN TEAL BUTTON: ADD ITEM */
 .btn-inline-add {
-  background-color: var(--c-berry);
-  color: white;
+  background-color: var(--c-teal-dark);
+  color: #ffffff;
   border: none;
-  padding: 0.55rem 1.1rem;
+  padding: 0.55rem 1.15rem;
   border-radius: var(--radius-sm);
   font-weight: 700;
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -746,11 +741,10 @@ select:focus {
   transition: var(--transition);
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(184, 74, 98, 0.3);
 }
 
 .btn-inline-add:hover {
-  background-color: var(--c-berry-hover);
+  background-color: #2a6964;
   transform: translateY(-1px);
 }
 
@@ -780,13 +774,13 @@ select:focus {
 .search-box input {
   padding-left: 2.6rem;
   border-radius: 999px;
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
 }
 
 .filter-tabs {
   display: flex;
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   padding: 0.3rem;
   border-radius: 999px;
@@ -809,16 +803,16 @@ select:focus {
   color: var(--text-primary);
 }
 
+/* Solid Ocean Teal Filter Tab */
 .filter-tab.active {
   background-color: var(--c-teal);
-  color: white;
-  box-shadow: 0 2px 8px rgba(78, 168, 161, 0.3);
+  color: #ffffff;
 }
 
 /* Task List Container */
 .task-list-container,
 .habits-list-container {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.35rem;
@@ -842,8 +836,8 @@ select:focus {
 }
 
 .text-btn:hover {
-  color: var(--c-berry);
-  background-color: var(--c-berry-bg);
+  color: var(--c-dusty-red);
+  background-color: var(--c-dusty-red-bg);
 }
 
 .task-list {
@@ -855,7 +849,7 @@ select:focus {
 
 /* Individual Task Card */
 .task-item {
-  background: var(--bg-card-secondary);
+  background-color: var(--bg-card-secondary);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 0.9rem 1.1rem;
@@ -868,8 +862,7 @@ select:focus {
 
 .task-item:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-  border-color: var(--border-highlight);
+  border-color: var(--c-teal);
 }
 
 .task-left {
@@ -879,13 +872,13 @@ select:focus {
   flex: 1;
 }
 
-/* Custom Checkbox */
+/* Solid Checkbox */
 .custom-checkbox {
   width: 24px;
   height: 24px;
   border-radius: 8px;
   border: 2px solid var(--c-biscuit);
-  background: var(--bg-input);
+  background-color: var(--bg-input);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -895,15 +888,14 @@ select:focus {
 }
 
 .custom-checkbox:hover {
-  border-color: var(--c-berry);
+  border-color: var(--c-dusty-red);
   transform: scale(1.08);
 }
 
 .task-item.completed .custom-checkbox {
-  background-color: var(--c-berry);
-  border-color: var(--c-berry);
-  color: white;
-  box-shadow: 0 2px 6px rgba(184, 74, 98, 0.3);
+  background-color: var(--c-dusty-red);
+  border-color: var(--c-dusty-red);
+  color: #ffffff;
 }
 
 .task-details {
@@ -933,7 +925,7 @@ select:focus {
   align-items: center;
 }
 
-/* Single Palette-Harmonized Badges (No Mixed Gradients) */
+/* Individual Solid Category Badges */
 .badge {
   font-size: 0.72rem;
   font-weight: 700;
@@ -947,13 +939,13 @@ select:focus {
 
 .badge-shopping { background-color: var(--c-biscuit-bg); color: var(--c-biscuit-text); border-color: var(--c-biscuit); }
 .badge-work { background-color: var(--c-teal-bg); color: var(--c-teal-text); border-color: var(--c-teal); }
-.badge-visit { background-color: var(--c-sage-bg); color: var(--c-sage-text); border-color: var(--c-sage); }
-.badge-movie { background-color: var(--c-berry-bg); color: var(--c-berry-text); border-color: var(--c-berry); }
+.badge-visit { background-color: var(--c-mint-bg); color: var(--c-mint-text); border-color: var(--c-mint); }
+.badge-movie { background-color: var(--c-dusty-red-bg); color: var(--c-dusty-red-text); border-color: var(--c-dusty-red); }
 .badge-study { background-color: var(--c-teal-bg); color: var(--c-teal-text); border-color: var(--c-teal-dark); }
-.badge-health { background-color: var(--c-sage-bg); color: var(--c-sage-text); border-color: var(--c-sage-dark); }
+.badge-health { background-color: var(--c-mint-bg); color: var(--c-mint-text); border-color: var(--c-mint-dark); }
 .badge-personal { background-color: var(--c-biscuit-bg); color: var(--c-biscuit-text); border-color: var(--c-biscuit-dark); }
 .badge-other { background-color: var(--c-cream-bg); color: var(--c-cream-text); border-color: var(--c-cream-border); }
-.badge-date { color: var(--text-secondary); font-size: 0.72rem; background-color: var(--bg-card); border-color: var(--border-color); }
+.badge-date { color: var(--text-secondary); font-size: 0.72rem; background-color: var(--bg-card); border: 1px solid var(--border-color); }
 
 .task-actions {
   display: flex;
@@ -987,15 +979,15 @@ select:focus {
 }
 
 .action-btn.delete-btn:hover {
-  background-color: var(--c-berry-bg);
-  color: var(--c-berry);
+  background-color: var(--c-dusty-red-bg);
+  color: var(--c-dusty-red);
 }
 
 /* ==========================================================================
-   3. RIGHT PANEL: VERTICAL LIST TILES RAIL (Distinct Solid Colors)
+   3. RIGHT PANEL: VERTICAL LIST TILES RAIL (Single Solid Colors Everywhere)
    ========================================================================== */
 .right-tiles-panel {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
@@ -1014,7 +1006,7 @@ select:focus {
   width: 5px;
 }
 .right-tiles-panel::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background-color: var(--border-color);
   border-radius: 999px;
 }
 
@@ -1050,7 +1042,7 @@ select:focus {
   border-radius: 999px;
   background-color: var(--c-teal-bg);
   color: var(--c-teal-text);
-  border: 1px solid var(--c-teal);
+  border: 1.5px solid var(--c-teal);
 }
 
 .vertical-tiles-scroll {
@@ -1104,8 +1096,8 @@ select:focus {
   font-weight: 800;
   padding: 0.12rem 0.45rem;
   border-radius: 999px;
-  background: var(--bg-card);
-  border: 1px solid currentColor;
+  background-color: var(--bg-card);
+  border: 1.5px solid currentColor;
   color: inherit;
 }
 
@@ -1126,11 +1118,12 @@ select:focus {
 .tile-progress-bar {
   width: 100%;
   height: 5px;
-  background: rgba(0, 0, 0, 0.08);
+  background-color: rgba(0, 0, 0, 0.08);
   border-radius: 999px;
   overflow: hidden;
 }
 
+/* SOLID SINGLE-COLOR PROGRESS FILL */
 .tile-progress-fill {
   height: 100%;
   background-color: currentColor;
@@ -1139,7 +1132,7 @@ select:focus {
 }
 
 /* ==========================================================================
-   INDIVIDUAL SEPARATE COLORS FOR EVERY LIST TILE (No Mixed Gradients)
+   INDIVIDUAL SEPARATE COLORS FOR EVERY LIST TILE (Pure Solid Colors)
    ========================================================================== */
 
 /* 1. All Tasks - Solid Vanilla Cream */
@@ -1149,7 +1142,7 @@ select:focus {
   color: var(--c-cream-text);
 }
 .tile-all:hover, .tile-all.active {
-  background-color: var(--c-cream-active);
+  background-color: #f7ecc4;
   border-color: #bfa86b;
 }
 
@@ -1160,7 +1153,7 @@ select:focus {
   color: var(--c-biscuit-text);
 }
 .tile-shopping:hover, .tile-shopping.active {
-  background-color: var(--c-biscuit-active);
+  background-color: #f0e1cf;
   border-color: var(--c-biscuit-dark);
 }
 
@@ -1171,51 +1164,51 @@ select:focus {
   color: var(--c-teal-text);
 }
 .tile-work:hover, .tile-work.active {
-  background-color: var(--c-teal-active);
+  background-color: #d1eee9;
   border-color: var(--c-teal-dark);
 }
 
-/* 4. Visit - Solid Mint Sage */
+/* 4. Visit - Solid Mint Sage Green */
 .tile-visit {
-  background-color: var(--c-sage-bg);
-  border-color: var(--c-sage);
-  color: var(--c-sage-text);
+  background-color: var(--c-mint-bg);
+  border-color: var(--c-mint);
+  color: var(--c-mint-text);
 }
 .tile-visit:hover, .tile-visit.active {
-  background-color: var(--c-sage-active);
-  border-color: var(--c-sage-dark);
+  background-color: #d5efe1;
+  border-color: var(--c-mint-dark);
 }
 
-/* 5. Movie - Solid Berry Rose */
+/* 5. Movie - Solid Dusty Red */
 .tile-movie {
-  background-color: var(--c-berry-bg);
-  border-color: var(--c-berry);
-  color: var(--c-berry-text);
+  background-color: var(--c-dusty-red-bg);
+  border-color: var(--c-dusty-red);
+  color: var(--c-dusty-red-text);
 }
 .tile-movie:hover, .tile-movie.active {
-  background-color: var(--c-berry-active);
-  border-color: var(--c-berry-hover);
+  background-color: #f7d5db;
+  border-color: var(--c-dusty-red-hover);
 }
 
-/* 6. Study - Solid Deep Teal */
+/* 6. Study - Solid Deep Ocean Teal */
 .tile-study {
   background-color: var(--c-teal-bg);
   border-color: var(--c-teal-dark);
   color: var(--c-teal-dark);
 }
 .tile-study:hover, .tile-study.active {
-  background-color: var(--c-teal-active);
+  background-color: #c8eae5;
   border-color: #245854;
 }
 
-/* 7. Health - Solid Emerald Mint */
+/* 7. Health - Solid Emerald Mint Green */
 .tile-health {
-  background-color: var(--c-sage-bg);
-  border-color: var(--c-sage-dark);
-  color: var(--c-sage-dark);
+  background-color: var(--c-mint-bg);
+  border-color: var(--c-mint-dark);
+  color: var(--c-mint-dark);
 }
 .tile-health:hover, .tile-health.active {
-  background-color: var(--c-sage-active);
+  background-color: #c9ebd8;
   border-color: #1a563d;
 }
 
@@ -1226,38 +1219,38 @@ select:focus {
   color: var(--c-biscuit-text);
 }
 .tile-personal:hover, .tile-personal.active {
-  background-color: var(--c-biscuit-active);
+  background-color: #edd9c2;
   border-color: #8c6e44;
 }
 
-/* 9. Custom Tile - Solid Berry Rose */
+/* 9. Custom Tile - Solid Dusty Red */
 .tile-custom {
-  background-color: var(--c-berry-bg);
-  border-color: var(--c-berry);
-  color: var(--c-berry-text);
+  background-color: var(--c-dusty-red-bg);
+  border-color: var(--c-dusty-red);
+  color: var(--c-dusty-red-text);
 }
 .tile-custom:hover, .tile-custom.active {
-  background-color: var(--c-berry-active);
-  border-color: var(--c-berry-hover);
+  background-color: #f7d5db;
+  border-color: var(--c-dusty-red-hover);
 }
 
 /* 10. Other / New Category - Solid Mint Sage Dashed */
 .tile-other {
   border-style: dashed;
-  border-color: var(--c-berry);
+  border-color: var(--c-dusty-red);
   background-color: var(--c-cream-bg);
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
 }
 .tile-other:hover {
-  border-color: var(--c-berry-hover);
-  background-color: var(--c-berry-bg);
+  border-color: var(--c-dusty-red-hover);
+  background-color: var(--c-dusty-red-bg);
 }
 
 /* ==========================================================================
    Habits View Styles
    ========================================================================== */
 .habits-overview-card {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.5rem 1.8rem;
@@ -1298,8 +1291,8 @@ select:focus {
 }
 
 .btn-quick-habit {
-  background-color: var(--c-berry);
-  color: white;
+  background-color: var(--c-dusty-red);
+  color: #ffffff;
   border: none;
   padding: 0.75rem 1.35rem;
   border-radius: 999px;
@@ -1310,20 +1303,19 @@ select:focus {
   align-items: center;
   gap: 0.45rem;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(184, 74, 98, 0.3);
 }
 
 .btn-quick-habit:hover {
-  background-color: var(--c-berry-hover);
+  background-color: var(--c-dusty-red-hover);
   transform: translateY(-2px);
 }
 
 .alarm-live-badge {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--c-sage-text);
-  background-color: var(--c-sage-bg);
-  border: 1.5px solid var(--c-sage);
+  color: var(--c-mint-text);
+  background-color: var(--c-mint-bg);
+  border: 1.5px solid var(--c-mint);
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
   display: inline-flex;
@@ -1348,7 +1340,7 @@ select:focus {
 }
 
 .habit-card {
-  background: var(--bg-card-secondary);
+  background-color: var(--bg-card-secondary);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 1.2rem;
@@ -1361,8 +1353,7 @@ select:focus {
 
 .habit-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-highlight);
+  border-color: var(--c-teal);
 }
 
 .habit-card-top {
@@ -1382,8 +1373,8 @@ select:focus {
   width: 46px;
   height: 46px;
   border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1406,10 +1397,10 @@ select:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   padding: 0.6rem 0.85rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
 }
 
 .habit-streak {
@@ -1465,17 +1456,18 @@ select:focus {
 }
 
 input:checked + .slider {
-  background-color: var(--c-teal);
+  background-color: var(--c-teal-dark);
 }
 
 input:checked + .slider:before {
   transform: translateX(16px);
 }
 
+/* SOLID MINT SAGE CHECK-IN BUTTON */
 .btn-checkin-habit {
-  background-color: var(--c-sage-bg);
-  border: 1.5px solid var(--c-sage);
-  color: var(--c-sage-text);
+  background-color: var(--c-mint);
+  border: 1.5px solid var(--c-mint-dark);
+  color: #134f37;
   padding: 0.7rem;
   border-radius: var(--radius-sm);
   font-weight: 700;
@@ -1489,8 +1481,7 @@ input:checked + .slider:before {
 }
 
 .btn-checkin-habit:hover {
-  background-color: var(--c-sage);
-  color: #0e432d;
+  background-color: var(--c-mint-hover);
   transform: translateY(-1px);
 }
 
@@ -1510,7 +1501,7 @@ input:checked + .slider:before {
 
 .empty-icon {
   font-size: 3.2rem;
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
   margin-bottom: 0.9rem;
   display: inline-block;
 }
@@ -1551,7 +1542,7 @@ input:checked + .slider:before {
 }
 
 .modal-card {
-  background: var(--bg-card);
+  background-color: var(--bg-card);
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.8rem;
@@ -1610,8 +1601,8 @@ input:checked + .slider:before {
 }
 
 .btn-cancel {
-  background: var(--bg-card-secondary);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-card-secondary);
+  border: 1.5px solid var(--border-color);
   color: var(--text-secondary);
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-md);
@@ -1622,13 +1613,13 @@ input:checked + .slider:before {
 }
 
 .btn-cancel:hover {
-  background: var(--border-color);
+  border-color: var(--text-primary);
   color: var(--text-primary);
 }
 
 .btn-save-edit {
-  background-color: var(--c-berry);
-  color: white;
+  background-color: var(--c-dusty-red);
+  color: #ffffff;
   border: none;
   padding: 0.75rem 1.4rem;
   border-radius: var(--radius-md);
@@ -1639,11 +1630,10 @@ input:checked + .slider:before {
   align-items: center;
   gap: 0.45rem;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(184, 74, 98, 0.3);
 }
 
 .btn-save-edit:hover {
-  background-color: var(--c-berry-hover);
+  background-color: var(--c-dusty-red-hover);
   transform: translateY(-2px);
 }
 
@@ -1669,8 +1659,8 @@ input:checked + .slider:before {
 }
 
 .alarm-modal-card {
-  background: var(--bg-card);
-  border: 2px solid var(--c-berry);
+  background-color: var(--bg-card);
+  border: 2px solid var(--c-dusty-red);
   border-radius: var(--radius-lg);
   padding: 2.2rem;
   max-width: 440px;
@@ -1693,13 +1683,13 @@ input:checked + .slider:before {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: var(--c-berry-bg);
-  border: 2px solid var(--c-berry);
+  background-color: var(--c-dusty-red-bg);
+  border: 2px solid var(--c-dusty-red);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
   margin-bottom: 0.3rem;
 }
 
@@ -1718,7 +1708,7 @@ input:checked + .slider:before {
   letter-spacing: 0.08em;
   color: var(--c-teal-text);
   background-color: var(--c-teal-bg);
-  border: 1px solid var(--c-teal);
+  border: 1.5px solid var(--c-teal);
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
@@ -1745,8 +1735,8 @@ input:checked + .slider:before {
 }
 
 .btn-alarm-complete {
-  background-color: var(--c-sage-dark);
-  color: white;
+  background-color: var(--c-mint-dark);
+  color: #ffffff;
   border: none;
   padding: 0.85rem;
   border-radius: var(--radius-md);
@@ -1758,7 +1748,6 @@ input:checked + .slider:before {
   justify-content: center;
   gap: 0.5rem;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(45, 130, 95, 0.3);
 }
 
 .btn-alarm-complete:hover {
@@ -1769,7 +1758,7 @@ input:checked + .slider:before {
 .btn-alarm-snooze {
   background-color: var(--c-biscuit-bg);
   color: var(--c-biscuit-text);
-  border: 1px solid var(--c-biscuit);
+  border: 1.5px solid var(--c-biscuit);
   padding: 0.75rem;
   border-radius: var(--radius-md);
   font-weight: 700;
@@ -1799,7 +1788,7 @@ input:checked + .slider:before {
 }
 
 .btn-alarm-dismiss:hover {
-  color: var(--c-berry);
+  color: var(--c-dusty-red);
 }
 
 /* Mobile Sidebar Backdrop */
