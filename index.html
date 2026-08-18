@@ -72,15 +72,18 @@
             </select>
           </div>
 
-          <!-- Dynamic Custom Category Input (shown when 'Other' is chosen) -->
+          <!-- Dedicated Bar for New Custom Category -->
           <div class="form-group custom-category-group" id="customCategoryGroup" style="display: none;">
-            <label for="customCategoryInput"><i class="fa-solid fa-sparkles"></i> Custom Category Name</label>
+            <label for="customCategoryInput">
+              <i class="fa-solid fa-sparkles"></i> Type New Category Name:
+            </label>
             <input 
               type="text" 
               id="customCategoryInput" 
-              placeholder="e.g., Gaming, Gardening, Finance..." 
+              placeholder="e.g., Gaming, Gardening, Finance, Anime..." 
               autocomplete="off"
             >
+            <span class="custom-category-hint">✨ Creates a new custom list tile on your dashboard!</span>
           </div>
 
           <div class="form-group">
@@ -216,7 +219,7 @@
         <section class="tiles-section">
           <div class="tiles-header">
             <h3 class="tiles-section-title"><i class="fa-solid fa-table-cells-large"></i> Choose a List Tile</h3>
-            <span class="tiles-hint">Click any tile to view items or choose Other to create your own category</span>
+            <span class="tiles-hint">Click any tile to view items, or click Other to create a new category tile</span>
           </div>
 
           <div class="list-tiles-grid" id="listTilesGrid">
@@ -345,15 +348,18 @@
           </select>
         </div>
 
-        <!-- Dynamic Custom Category Input in Edit Modal -->
+        <!-- Dedicated Bar for New Custom Category in Edit Modal -->
         <div class="form-group custom-category-group" id="editCustomCategoryGroup" style="display: none;">
-          <label for="editCustomCategoryInput"><i class="fa-solid fa-sparkles"></i> New Category Name</label>
+          <label for="editCustomCategoryInput">
+            <i class="fa-solid fa-sparkles"></i> Type New Category Name:
+          </label>
           <input 
             type="text" 
             id="editCustomCategoryInput" 
-            placeholder="e.g., Gaming, Gardening, Finance..." 
+            placeholder="e.g., Gaming, Gardening, Finance, Anime..." 
             autocomplete="off"
           >
+          <span class="custom-category-hint">✨ Creates and assigns this new category tile</span>
         </div>
 
         <div class="form-group">

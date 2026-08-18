@@ -399,26 +399,35 @@ function setupEventListeners() {
 
   // Task Category Dropdown Change (Toggle Custom Category Input)
   if (taskCategory && customCategoryGroup) {
-    taskCategory.addEventListener("change", () => {
+    const toggleSidebarCustomCategory = () => {
       if (taskCategory.value === "Other") {
         customCategoryGroup.style.display = "flex";
-        if (customCategoryInput) customCategoryInput.focus();
+        if (customCategoryInput) {
+          customCategoryInput.focus();
+          customCategoryInput.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
       } else {
         customCategoryGroup.style.display = "none";
       }
-    });
+    };
+    taskCategory.addEventListener("change", toggleSidebarCustomCategory);
+    taskCategory.addEventListener("input", toggleSidebarCustomCategory);
   }
 
   // Edit Task Category Dropdown Change
   if (editTaskCategory && editCustomCategoryGroup) {
-    editTaskCategory.addEventListener("change", () => {
+    const toggleEditCustomCategory = () => {
       if (editTaskCategory.value === "Other") {
         editCustomCategoryGroup.style.display = "flex";
-        if (editCustomCategoryInput) editCustomCategoryInput.focus();
+        if (editCustomCategoryInput) {
+          editCustomCategoryInput.focus();
+        }
       } else {
         editCustomCategoryGroup.style.display = "none";
       }
-    });
+    };
+    editTaskCategory.addEventListener("change", toggleEditCustomCategory);
+    editTaskCategory.addEventListener("input", toggleEditCustomCategory);
   }
 
   // Task Form Submit
