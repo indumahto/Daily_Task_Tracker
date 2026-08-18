@@ -180,7 +180,7 @@ function stopAlarmLoop() {
   }
 }
 
-// DOM Elements - Tasks
+// DOM Elements - Sidebar Tasks Form
 const taskForm = document.getElementById("taskForm");
 const taskTitleInput = document.getElementById("taskTitleInput");
 const taskCategory = document.getElementById("taskCategory");
@@ -188,7 +188,14 @@ const customCategoryGroup = document.getElementById("customCategoryGroup");
 const customCategoryInput = document.getElementById("customCategoryInput");
 const taskDueDate = document.getElementById("taskDueDate");
 
+// DOM Elements - Inline Add Item in Selected List
+const inlineAddForm = document.getElementById("inlineAddForm");
+const inlineTaskTitleInput = document.getElementById("inlineTaskTitleInput");
+const inlineTaskDueDate = document.getElementById("inlineTaskDueDate");
+
+// DOM Elements - Middle Panel & Right Rail
 const listTilesGrid = document.getElementById("listTilesGrid");
+const totalTilesCountPill = document.getElementById("totalTilesCountPill");
 const taskList = document.getElementById("taskList");
 const emptyState = document.getElementById("emptyState");
 const emptyStateTitle = document.getElementById("emptyStateTitle");
@@ -430,7 +437,35 @@ function setupEventListeners() {
     editTaskCategory.addEventListener("input", toggleEditCustomCategory);
   }
 
-  // Task Form Submit
+  // INLINE ADD ITEM IN SELECTED LIST FORM
+  if (inlineAddForm) {
+    inlineAddForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const title = inlineTaskTitleInput.value.trim();
+      if (!title) return;
+
+      const targetCategory = selectedListId === "all" ? "Personal" : selectedListId;
+
+      const newTask = {
+        id: "task-" + Date.now(),
+        title: title,
+        category: targetCategory,
+        dueDate: inlineTaskDueDate ? inlineTaskDueDate.value : "",
+        completed: false,
+        createdAt: Date.now()
+      };
+
+      tasks.unshift(newTask);
+      saveTasks();
+      inlineTaskTitleInput.value = "";
+      if (inlineTaskDueDate) inlineTaskDueDate.value = "";
+
+      playTone(620, "sine", 0.18);
+      render();
+    });
+  }
+
+  // Sidebar Task Form Submit
   taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const title = taskTitleInput.value.trim();
@@ -626,9 +661,9 @@ function switchMainView(view) {
   if (view === "tasks") {
     viewTasksTab.classList.add("active");
     viewHabitsTab.classList.remove("active");
-    tasksViewContainer.style.display = "flex";
+    tasksViewContainer.style.display = "grid";
     habitsViewContainer.style.display = "none";
-    mainSectionHeading.textContent = "My Task Lists 📋";
+    mainSectionHeading.textContent = "Task & List Dashboard 📋";
   } else {
     viewHabitsTab.classList.add("active");
     viewTasksTab.classList.remove("active");
@@ -656,11 +691,13 @@ function render() {
   updateNextAlarmWidget();
 }
 
-// Render Separate List Category Tiles
+// Render Separate List Category Tiles (Right Vertical Rail)
 function renderListTiles() {
   listTilesGrid.innerHTML = "";
 
   const allCats = getAllCategories();
+  const listsCount = allCats.filter((c) => !c.isOtherAction).length;
+  if (totalTilesCountPill) totalTilesCountPill.textContent = `${listsCount} Lists`;
 
   allCats.forEach((cat) => {
     const card = document.createElement("div");
@@ -675,10 +712,10 @@ function renderListTiles() {
         </div>
         <div class="tile-info">
           <h4>Custom Category</h4>
-          <div class="tile-stats-text">Click to Create</div>
+          <div class="tile-stats-text">Click to Add Tile</div>
         </div>
         <div class="tile-progress-bar">
-          <div class="tile-progress-fill" style="width: 100%; opacity: 0.3;"></div>
+          <div class="tile-progress-fill" style="width: 100%; opacity: 0.25;"></div>
         </div>
       `;
 
@@ -709,7 +746,7 @@ function renderListTiles() {
       </div>
       <div class="tile-info">
         <h4>${escapeHtml(cat.name)}</h4>
-        <div class="tile-stats-text">${percent}% Done</div>
+        <div class="tile-stats-text">${percent}% Done (${total - completed} left)</div>
       </div>
       <div class="tile-progress-bar">
         <div class="tile-progress-fill" style="width: ${percent}%;"></div>
@@ -730,11 +767,20 @@ function renderListTiles() {
   });
 }
 
-// Render Task List Items for Selected Tile (No Priority)
+// Render Task List Items for Selected Tile (Middle Panel)
 function renderTasksListOnly() {
   const currentCatObj = getAllCategories().find((c) => c.id === selectedListId) || BASE_CATEGORIES[0];
   if (listHeading) listHeading.textContent = currentCatObj.name;
   if (currentListIcon) currentListIcon.textContent = currentCatObj.icon;
+
+  // Update Inline Add Input placeholder to reflect current list
+  if (inlineTaskTitleInput) {
+    if (selectedListId === "all") {
+      inlineTaskTitleInput.placeholder = `+ Add a new item to Personal list...`;
+    } else {
+      inlineTaskTitleInput.placeholder = `+ Add a new item to ${currentCatObj.name}...`;
+    }
+  }
 
   let categoryFiltered = selectedListId === "all" 
     ? tasks 
@@ -766,10 +812,10 @@ function renderTasksListOnly() {
       emptyStateDesc.textContent = `No tasks match "${searchQuery}" in ${currentCatObj.name}.`;
     } else if (currentFilter === "completed") {
       emptyStateTitle.textContent = "No completed items";
-      emptyStateDesc.textContent = "Check off tasks to see them here!";
+      emptyStateDesc.textContent = "Check off tasks in this list to see them here!";
     } else {
       emptyStateTitle.textContent = `No items in ${currentCatObj.name}`;
-      emptyStateDesc.textContent = "Use the sidebar form to add an item to this list!";
+      emptyStateDesc.textContent = "Use the add bar above to add your first item to this list!";
     }
   } else {
     emptyState.style.display = "none";
@@ -779,7 +825,7 @@ function renderTasksListOnly() {
   }
 }
 
-// Create Task Element with Checkbox, Edit & Delete Buttons (No Priority)
+// Create Task Element with Checkbox, Edit & Delete Buttons
 function createTaskElement(task) {
   const li = document.createElement("li");
   li.className = `task-item ${task.completed ? "completed" : ""}`;
